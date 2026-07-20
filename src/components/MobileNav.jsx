@@ -17,14 +17,14 @@ const nav = [
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="lg:hidden sticky top-0 z-40 bg-bg-deep/90 backdrop-blur-md border-b border-border">
+    <div className="lg:hidden sticky top-0 z-40 bg-[#050807]/95 backdrop-blur-xl border-b border-[#1A2E26]">
       <div className="flex items-center justify-between h-14 px-4">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#D4AF37] to-[#B45309] flex items-center justify-center text-white">
-            <CloudCog size={15} strokeWidth={2.2} />
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#22C55E] to-[#15803D] flex items-center justify-center text-[#050807] font-black text-xs">
+            Fx
           </div>
-          <span className="font-display font-bold text-sm text-[#1C1917]">
-            FinOps<span className="text-[#C59B27]">Cloud</span>
+          <span className="font-display font-extrabold text-sm text-white">
+            Fx<span className="text-[#4ADE80]">ology</span>
           </span>
         </div>
         <button onClick={() => setOpen((o) => !o)} className="w-9 h-9 flex items-center justify-center text-text-muted">
@@ -32,7 +32,7 @@ export default function MobileNav() {
         </button>
       </div>
       {open && (
-        <div className="px-3 pb-3 flex flex-col gap-1 bg-white border-b border-border shadow-lg">
+        <div className="px-3 pb-3 flex flex-col gap-1 bg-[#0F1714] border-b border-[#1A2E26] shadow-2xl">
           {nav.map(({ to, label, icon: Icon, end }) => (
             <NavLink
               key={to}
@@ -41,11 +41,11 @@ export default function MobileNav() {
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium ${
-                  isActive ? "bg-[#EDE5D4] text-[#1C1917] font-semibold border border-[#D5CCA8]" : "text-text-muted hover:text-[#1C1917]"
+                  isActive ? "bg-[#1B2E28] text-[#4ADE80] font-bold border border-[#22C55E]/40" : "text-text-muted hover:text-white"
                 }`
               }
             >
-              <Icon size={16} strokeWidth={2} className="text-[#C59B27]" />
+              <Icon size={16} strokeWidth={2} className="text-[#4ADE80]" />
               {label}
             </NavLink>
           ))}

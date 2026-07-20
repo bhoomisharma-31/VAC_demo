@@ -22,12 +22,12 @@ export default function Reports() {
           <SectionHeading eyebrow="Trend" title="Spend trajectory, last 12 days" />
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={costTrend} margin={{ left: -20 }}>
-              <CartesianGrid stroke="#E5DEC9" vertical={false} />
-              <XAxis dataKey="day" tick={{ fill: "#78716C", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} interval={1} />
-              <YAxis tick={{ fill: "#78716C", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={36} />
-              <Tooltip contentStyle={{ background: "#FFFFFF", border: "1px solid #D5CCA8", borderRadius: 10, fontSize: 12, boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} />
-              <Line type="monotone" dataKey="cost" stroke="#D4AF37" strokeWidth={2.5} dot={{ r: 3.5, fill: "#FFFFFF", stroke: "#D4AF37", strokeWidth: 2 }} />
-              <Line type="monotone" dataKey="forecast" stroke="#7C3AED" strokeWidth={1.5} strokeDasharray="4 4" dot={false} />
+              <CartesianGrid stroke="#1A2E26" vertical={false} />
+              <XAxis dataKey="day" tick={{ fill: "#9CA3AF", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} interval={1} />
+              <YAxis tick={{ fill: "#9CA3AF", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={36} />
+              <Tooltip contentStyle={{ background: "#050807", border: "1px solid #22C55E", borderRadius: 10, fontSize: 12, color: "#FFF" }} />
+              <Line type="monotone" dataKey="cost" stroke="#22C55E" strokeWidth={2.5} dot={{ r: 3.5, fill: "#050807", stroke: "#4ADE80", strokeWidth: 2 }} />
+              <Line type="monotone" dataKey="forecast" stroke="#8B5CF6" strokeWidth={1.5} strokeDasharray="4 4" dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </Card>
@@ -42,16 +42,16 @@ export default function Reports() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: idx * 0.05 }}
-                  className="flex items-center gap-3 p-3 rounded-xl border border-border bg-bg-surface2/50 hover:border-teal/25 transition-colors group"
+                  className="flex items-center gap-3 p-3 rounded-2xl border border-[#1A2E26] bg-[#050807]/60 hover:border-[#22C55E]/40 transition-colors group"
                 >
-                  <div className="w-9 h-9 rounded-lg bg-bg-surface3 border border-border flex items-center justify-center text-teal shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-[#22C55E]/15 border border-[#22C55E]/30 flex items-center justify-center text-[#4ADE80] shrink-0">
                     <FileText size={15} />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="text-xs text-text-primary truncate">{r.name}</div>
-                    <div className="text-[10px] font-mono text-text-faint mt-0.5">{r.date} · {r.size}</div>
+                    <div className="text-xs text-white truncate font-semibold">{r.name}</div>
+                    <div className="text-[10px] font-mono text-text-muted mt-0.5">{r.date} · {r.size}</div>
                   </div>
-                  <button className="w-8 h-8 rounded-lg flex items-center justify-center text-text-faint group-hover:text-teal transition-colors">
+                  <button className="w-8 h-8 rounded-lg flex items-center justify-center text-text-muted group-hover:text-[#4ADE80] transition-colors">
                     <Download size={14} />
                   </button>
                 </motion.div>
@@ -68,20 +68,20 @@ export default function Reports() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: idx * 0.05 }}
-                  className="flex items-center gap-3 p-3 rounded-xl border border-border bg-bg-surface2/50"
+                  className="flex items-center gap-3 p-3 rounded-2xl border border-[#1A2E26] bg-[#050807]/60"
                 >
                   {d.status === "success" ? (
-                    <CheckCircle2 size={16} className="text-teal shrink-0" />
+                    <CheckCircle2 size={16} className="text-[#4ADE80] shrink-0" />
                   ) : (
-                    <XCircle size={16} className="text-coral shrink-0" />
+                    <XCircle size={16} className="text-red-400 shrink-0" />
                   )}
                   <div className="min-w-0 flex-1">
-                    <div className="text-xs text-text-primary">
-                      {d.app} <span className="text-text-faint font-mono">{d.version}</span>
+                    <div className="text-xs text-white font-semibold">
+                      {d.app} <span className="text-text-muted font-mono">{d.version}</span>
                     </div>
-                    <div className="text-[10px] font-mono text-text-faint mt-0.5">{d.by} · {d.time}</div>
+                    <div className="text-[10px] font-mono text-text-muted mt-0.5">{d.by} · {d.time}</div>
                   </div>
-                  <span className="text-[10px] font-mono text-text-faint">{d.id}</span>
+                  <span className="text-[10px] font-mono text-text-muted">{d.id}</span>
                 </motion.div>
               ))}
             </div>

@@ -26,41 +26,41 @@ const nav = [
 
 export default function Sidebar() {
   return (
-    <aside className="hidden lg:flex flex-col w-64 shrink-0 border-r border-border bg-bg-deep/80 backdrop-blur-md h-screen sticky top-0">
-      <div className="flex items-center gap-3 px-6 h-16 border-b border-border">
-        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#D4AF37] via-[#C59B27] to-[#B45309] flex items-center justify-center shadow-md shadow-[#D4AF37]/30">
-          <CloudCog size={18} className="text-white" strokeWidth={2.2} />
+    <aside className="hidden lg:flex flex-col w-64 shrink-0 border-r border-[#1A2E26] bg-[#050807]/90 backdrop-blur-xl h-screen sticky top-0 z-40">
+      <div className="flex items-center gap-3 px-6 h-16 border-b border-[#1A2E26]">
+        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#22C55E] to-[#15803D] flex items-center justify-center shadow-lg shadow-[#22C55E]/30">
+          <span className="font-display font-black text-xs text-[#050807]">Fx</span>
         </div>
         <div className="leading-tight">
-          <div className="font-display font-bold text-[15px] tracking-tight text-text-primary">
-            FinOps<span className="text-[#C59B27]">Cloud</span>
+          <div className="font-display font-extrabold text-lg tracking-tight text-white">
+            Fx<span className="text-[#4ADE80]">ology</span>
           </div>
-          <div className="text-[10px] text-[#92400E] font-mono tracking-wider font-medium">CONTROL PLANE</div>
+          <div className="text-[10px] text-[#4ADE80] font-mono tracking-widest font-bold uppercase">PROP PLATFORM</div>
         </div>
       </div>
 
       <nav className="flex-1 px-3 py-5 flex flex-col gap-1 overflow-y-auto">
-        <div className="px-3 pb-2 text-[10px] font-mono tracking-widest text-text-faint font-semibold uppercase">Monitor</div>
+        <div className="px-3 pb-2 text-[10px] font-mono tracking-widest text-[#22C55E] font-bold uppercase">Monitor</div>
         {nav.slice(0, 4).map((item) => (
           <NavItem key={item.to} {...item} />
         ))}
-        <div className="px-3 pt-5 pb-2 text-[10px] font-mono tracking-widest text-text-faint font-semibold uppercase">Optimize</div>
+        <div className="px-3 pt-5 pb-2 text-[10px] font-mono tracking-widest text-[#22C55E] font-bold uppercase">Optimize</div>
         {nav.slice(4).map((item) => (
           <NavItem key={item.to} {...item} />
         ))}
 
-        <div className="px-3 pt-5 pb-2 text-[10px] font-mono tracking-widest text-text-faint font-semibold uppercase">Access</div>
-        <NavItem to="/login" label="Login Page" icon={LogIn} />
+        <div className="px-3 pt-5 pb-2 text-[10px] font-mono tracking-widest text-[#22C55E] font-bold uppercase">Access</div>
+        <NavItem to="/login" label="Login / Register" icon={LogIn} />
       </nav>
 
-      <div className="p-4 border-t border-border">
-        <div className="rounded-xl border border-border bg-white p-3.5 shadow-sm">
+      <div className="p-4 border-t border-[#1A2E26]">
+        <div className="rounded-2xl border border-[#1A2E26] bg-[#0F1714] p-3.5 shadow-card">
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#C59B27] live-dot" />
-            <span className="text-[11px] font-mono text-text-muted font-semibold tracking-wide">PIPELINE HEALTHY</span>
+            <span className="w-2 h-2 rounded-full bg-[#22C55E] live-dot" />
+            <span className="text-[11px] font-mono text-[#4ADE80] font-bold tracking-wide">SYSTEM ACTIVE</span>
           </div>
-          <p className="text-[11px] text-text-faint leading-relaxed">
-            Last deploy 2h ago via GitHub Actions → ECR → Kubernetes.
+          <p className="text-[11px] text-text-muted leading-relaxed">
+            Fxology Engine v3.4 · 100% Trading & Cloud Uptime.
           </p>
         </div>
       </div>
@@ -73,18 +73,18 @@ function NavItem({ to, label, icon: Icon, end }) {
     <NavLink to={to} end={end} className="relative">
       {({ isActive }) => (
         <div
-          className={`relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors duration-200 ${
-            isActive ? "text-[#1C1917] font-semibold" : "text-text-muted hover:text-[#1C1917] hover:bg-[#F6F1E7]/60"
+          className={`relative flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm transition-all duration-200 ${
+            isActive ? "text-[#4ADE80] font-bold" : "text-text-muted hover:text-white hover:bg-[#15221E]"
           }`}
         >
           {isActive && (
             <motion.div
               layoutId="active-pill"
-              className="absolute inset-0 rounded-xl bg-[#EDE5D4] border border-[#D5CCA8] shadow-sm"
+              className="absolute inset-0 rounded-xl bg-[#1B2E28] border border-[#22C55E]/40 shadow-glowEmerald"
               transition={{ type: "spring", stiffness: 400, damping: 32 }}
             />
           )}
-          <Icon size={18} className={`relative z-10 ${isActive ? "text-[#C59B27]" : "text-[#78716C]"}`} strokeWidth={2} />
+          <Icon size={18} className={`relative z-10 ${isActive ? "text-[#4ADE80]" : "text-text-faint"}`} strokeWidth={2} />
           <span className="relative z-10">{label}</span>
         </div>
       )}

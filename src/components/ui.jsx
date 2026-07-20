@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 export function Card({ children, className = "", ...props }) {
   return (
     <div
-      className={`rounded-2xl border border-border bg-bg-surface shadow-card transition-all duration-200 ${className}`}
+      className={`rounded-2xl border border-[#1A2E26] bg-[#0F1714]/90 backdrop-blur-md shadow-card transition-all duration-200 hover:border-[#22C55E]/40 ${className}`}
       {...props}
     >
       {children}
@@ -24,17 +24,18 @@ export function PageTransition({ children }) {
   );
 }
 
-export function StatCard({ icon: Icon, label, value, unit, delta, deltaTone = "neutral", accent = "gold", index = 0 }) {
+export function StatCard({ icon: Icon, label, value, unit, delta, deltaTone = "neutral", accent = "emerald", index = 0 }) {
   const accentMap = {
-    gold: "text-gold border-gold/40 bg-gold-light/60 shadow-glowGold",
-    teal: "text-teal border-teal/30 bg-teal/10 shadow-glow",
-    violet: "text-violet border-violet/30 bg-violet/10 shadow-glowViolet",
-    amber: "text-amber border-amber/30 bg-amber/10",
-    coral: "text-coral border-coral/30 bg-coral/10",
+    emerald: "text-[#4ADE80] border-[#22C55E]/40 bg-[#22C55E]/10 shadow-glowEmerald",
+    gold: "text-[#4ADE80] border-[#22C55E]/40 bg-[#22C55E]/10 shadow-glowEmerald",
+    teal: "text-[#10B981] border-[#10B981]/30 bg-[#10B981]/10 shadow-glow",
+    violet: "text-[#8B5CF6] border-[#8B5CF6]/30 bg-[#8B5CF6]/10 shadow-glowViolet",
+    amber: "text-[#F59E0B] border-[#F59E0B]/30 bg-[#F59E0B]/10",
+    coral: "text-[#EF4444] border-[#EF4444]/30 bg-[#EF4444]/10",
   };
   const toneMap = {
-    up: "text-coral font-medium",
-    down: "text-teal font-medium",
+    up: "text-[#EF4444] font-medium",
+    down: "text-[#4ADE80] font-medium",
     neutral: "text-text-faint",
   };
   return (
@@ -43,12 +44,12 @@ export function StatCard({ icon: Icon, label, value, unit, delta, deltaTone = "n
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
     >
-      <Card className="p-5 hover:border-gold/50 group relative overflow-hidden transition-colors duration-300">
+      <Card className="p-5 hover:border-[#22C55E]/60 group relative overflow-hidden transition-colors duration-300">
         <div className="flex items-start justify-between mb-6">
-          <div className={`w-10 h-10 rounded-xl border flex items-center justify-center ${accentMap[accent] || accentMap.gold}`}>
+          <div className={`w-10 h-10 rounded-xl border flex items-center justify-center ${accentMap[accent] || accentMap.emerald}`}>
             <Icon size={18} strokeWidth={2} />
           </div>
-          {delta && <span className={`text-[11px] font-mono px-2 py-0.5 rounded-full bg-bg-surface2 border border-border ${toneMap[deltaTone]}`}>{delta}</span>}
+          {delta && <span className={`text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#15221E] border border-[#1A2E26] ${toneMap[deltaTone]}`}>{delta}</span>}
         </div>
         <div className="font-mono text-2xl text-text-primary tabular font-bold tracking-tight">
           {value}
@@ -64,7 +65,7 @@ export function SectionHeading({ eyebrow, title, action }) {
   return (
     <div className="flex items-end justify-between mb-4">
       <div>
-        {eyebrow && <div className="text-[10px] font-mono tracking-widest text-gold-dim uppercase font-semibold mb-1">{eyebrow}</div>}
+        {eyebrow && <div className="text-[10px] font-mono tracking-widest text-[#22C55E] uppercase font-bold mb-1">{eyebrow}</div>}
         <h2 className="font-display text-base font-bold text-text-primary">{title}</h2>
       </div>
       {action}
@@ -73,40 +74,41 @@ export function SectionHeading({ eyebrow, title, action }) {
 }
 
 const statusStyles = {
-  running: "bg-emerald-50 text-emerald-700 border-emerald-200/80",
-  success: "bg-emerald-50 text-emerald-700 border-emerald-200/80",
-  stopped: "bg-amber-50/80 text-amber-900 border-amber-200/80",
-  exited: "bg-stone-100 text-stone-600 border-stone-200",
-  failed: "bg-red-50 text-red-700 border-red-200",
-  warning: "bg-amber-50 text-amber-800 border-amber-300",
-  idle: "bg-amber-50 text-amber-700 border-amber-200",
+  running: "bg-[#22C55E]/15 text-[#4ADE80] border-[#22C55E]/30",
+  success: "bg-[#22C55E]/15 text-[#4ADE80] border-[#22C55E]/30",
+  stopped: "bg-amber-500/15 text-amber-400 border-amber-500/30",
+  exited: "bg-stone-800/80 text-stone-400 border-stone-700",
+  failed: "bg-red-500/15 text-red-400 border-red-500/30",
+  warning: "bg-amber-500/15 text-amber-300 border-amber-500/30",
+  idle: "bg-amber-500/15 text-amber-300 border-amber-500/30",
 };
 
 export function StatusBadge({ status }) {
-  const cls = statusStyles[status] || "bg-bg-surface2 text-text-muted border-border";
+  const cls = statusStyles[status] || "bg-[#15221E] text-text-muted border-[#1A2E26]";
   return (
     <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border text-[11px] font-mono font-medium capitalize ${cls}`}>
-      <span className={`w-1.5 h-1.5 rounded-full ${status === "running" || status === "success" ? "bg-emerald-500 live-dot" : status === "failed" ? "bg-red-500" : "bg-current"}`} />
+      <span className={`w-1.5 h-1.5 rounded-full ${status === "running" || status === "success" ? "bg-[#22C55E] live-dot" : status === "failed" ? "bg-red-500" : "bg-current"}`} />
       {status}
     </span>
   );
 }
 
-export function Meter({ value, tone = "gold" }) {
+export function Meter({ value, tone = "emerald" }) {
   const toneMap = {
-    gold: "bg-gradient-to-r from-amber-400 to-amber-600",
-    teal: "bg-emerald-500",
-    violet: "bg-violet-500",
-    amber: "bg-amber-500",
-    coral: "bg-red-500",
+    emerald: "bg-gradient-to-r from-[#22C55E] to-[#4ADE80]",
+    gold: "bg-gradient-to-r from-[#22C55E] to-[#4ADE80]",
+    teal: "bg-[#10B981]",
+    violet: "bg-[#8B5CF6]",
+    amber: "bg-[#F59E0B]",
+    coral: "bg-[#EF4444]",
   };
   return (
-    <div className="w-full h-1.5 rounded-full bg-bg-surface2 overflow-hidden border border-border/40">
+    <div className="w-full h-1.5 rounded-full bg-[#15221E] overflow-hidden border border-[#1A2E26]">
       <motion.div
         initial={{ width: 0 }}
         animate={{ width: `${value}%` }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`h-full rounded-full ${toneMap[tone] || toneMap.gold}`}
+        className={`h-full rounded-full ${toneMap[tone] || toneMap.emerald}`}
       />
     </div>
   );

@@ -1,6 +1,7 @@
 import { Wallet, TrendingUp, Sparkles, Server as ServerIcon, Rocket, PiggyBank } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, PieChart, Pie, Cell } from "recharts";
 import Topbar from "../components/Topbar";
+import FxologyHero from "../components/FxologyHero";
 import { Card, PageTransition, StatCard, SectionHeading, StatusBadge, Meter } from "../components/ui";
 import { costTrend, costByService, costByEnv, kpis, recommendations, alerts, ec2Instances } from "../data/mockData";
 import { motion } from "framer-motion";
@@ -12,158 +13,162 @@ export default function Overview() {
 
   return (
     <PageTransition>
-      <Topbar title="Cloud Overview" subtitle="Live posture across compute, containers, and spend" />
+      <Topbar title="Fxology Platform & Control Plane" subtitle="Live prop trading posture and cloud infrastructure intelligence" />
 
-      <div className="pt-6 space-y-6">
-        {/* Signature hero: cost pulse strip */}
-        <Card className="p-0 overflow-hidden relative">
-          <div className="absolute inset-0 bg-grid opacity-40 pointer-events-none" />
-          <div className="relative grid lg:grid-cols-[1.3fr_1fr] gap-0">
-            <div className="p-6 lg:p-7 border-b lg:border-b-0 lg:border-r border-border/70">
-              <div className="flex items-center justify-between mb-1">
-                <div className="text-[10px] font-mono tracking-widest text-text-faint uppercase flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-teal live-dot" /> Live cost pulse — 12 day trend
+      <div className="pt-2 space-y-8">
+        {/* Full Fxology Hero Landing Showcase from Dribbble Video */}
+        <FxologyHero />
+
+        {/* Live Cost Pulse Strip & Budget Section */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <Card className="p-0 overflow-hidden relative border border-[#1A2E26] bg-[#0F1714]">
+            <div className="absolute inset-0 bg-grid opacity-40 pointer-events-none" />
+            <div className="relative grid lg:grid-cols-[1.3fr_1fr] gap-0">
+              <div className="p-6 lg:p-7 border-b lg:border-b-0 lg:border-r border-[#1A2E26]">
+                <div className="flex items-center justify-between mb-1">
+                  <div className="text-[10px] font-mono tracking-widest text-[#4ADE80] uppercase flex items-center gap-1.5 font-bold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] live-dot" /> Live Cost Pulse — 12 Day Trend
+                  </div>
+                  <span className="text-[11px] font-mono text-text-muted">Fxology Cloud · ap-south-1</span>
                 </div>
-                <span className="text-[11px] font-mono text-text-faint">AWS · ap-south-1</span>
+                <div className="flex items-baseline gap-3 mb-4">
+                  <span className="font-display text-3xl font-extrabold text-white tabular">$9,694.32</span>
+                  <span className="text-xs font-mono text-red-400">▲ 8.2% vs last week</span>
+                </div>
+                <ResponsiveContainer width="100%" height={180}>
+                  <AreaChart data={costTrend} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="costFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#22C55E" stopOpacity={0.4} />
+                        <stop offset="100%" stopColor="#22C55E" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid stroke="#1A2E26" vertical={false} />
+                    <XAxis dataKey="day" tick={{ fill: "#9CA3AF", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} interval={1} />
+                    <YAxis tick={{ fill: "#9CA3AF", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={40} />
+                    <Tooltip
+                      contentStyle={{ background: "#050807", border: "1px solid #22C55E", borderRadius: 12, fontSize: 12, fontFamily: "JetBrains Mono", color: "#FFFFFF", boxShadow: "0 10px 25px rgba(0,0,0,0.5)" }}
+                    />
+                    <Area type="monotone" dataKey="forecast" stroke="#8B5CF6" strokeWidth={1.5} strokeDasharray="4 4" fill="none" />
+                    <Area type="monotone" dataKey="cost" stroke="#22C55E" strokeWidth={2.5} fill="url(#costFill)" />
+                  </AreaChart>
+                </ResponsiveContainer>
               </div>
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className="font-display text-3xl font-semibold tabular">$9,694.32</span>
-                <span className="text-xs font-mono text-coral">▲ 8.2% vs last week</span>
+
+              <div className="p-6 lg:p-7 flex flex-col justify-center bg-[#050807]/50">
+                <div className="text-[10px] font-mono tracking-widest text-[#22C55E] uppercase mb-4 font-bold">Budget Utilization</div>
+                <div className="flex items-center gap-5 mb-5">
+                  <RadialBudget pct={kpis.budgetUsedPct} />
+                  <div>
+                    <div className="font-display text-2xl font-extrabold text-white tabular">{kpis.budgetUsedPct}%</div>
+                    <div className="text-xs text-text-muted">of $12,480 monthly budget</div>
+                  </div>
+                </div>
+                <div className="space-y-2.5">
+                  {costByEnv.map((e) => (
+                    <div key={e.env} className="flex items-center gap-3">
+                      <span className="w-16 text-[11px] font-mono text-text-muted capitalize">{e.env}</span>
+                      <Meter value={(e.cost / 6820) * 100} tone={e.env === "production" ? "emerald" : e.env === "staging" ? "violet" : "amber"} />
+                      <span className="w-14 text-right text-[11px] font-mono text-white tabular font-bold">${e.cost}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <ResponsiveContainer width="100%" height={180}>
-                <AreaChart data={costTrend} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="costFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#D4AF37" stopOpacity={0.35} />
-                      <stop offset="100%" stopColor="#D4AF37" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid stroke="#E5DEC9" vertical={false} />
-                  <XAxis dataKey="day" tick={{ fill: "#78716C", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} interval={1} />
-                  <YAxis tick={{ fill: "#78716C", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={40} />
-                  <Tooltip
-                    contentStyle={{ background: "#FFFFFF", border: "1px solid #D5CCA8", borderRadius: 10, fontSize: 12, fontFamily: "JetBrains Mono", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }}
-                    labelStyle={{ color: "#57534E" }}
-                  />
-                  <Area type="monotone" dataKey="forecast" stroke="#7C3AED" strokeWidth={1.5} strokeDasharray="4 4" fill="none" />
-                  <Area type="monotone" dataKey="cost" stroke="#D4AF37" strokeWidth={2.5} fill="url(#costFill)" />
-                </AreaChart>
-              </ResponsiveContainer>
             </div>
+          </Card>
 
-            <div className="p-6 lg:p-7 flex flex-col justify-center">
-              <div className="text-[10px] font-mono tracking-widest text-text-faint uppercase mb-4">Budget utilization</div>
-              <div className="flex items-center gap-5 mb-5">
-                <RadialBudget pct={kpis.budgetUsedPct} />
-                <div>
-                  <div className="font-display text-2xl font-semibold tabular">{kpis.budgetUsedPct}%</div>
-                  <div className="text-xs text-text-muted">of $12,480 monthly budget</div>
-                </div>
-              </div>
-              <div className="space-y-2.5">
-                {costByEnv.map((e) => (
-                  <div key={e.env} className="flex items-center gap-3">
-                    <span className="w-16 text-[11px] font-mono text-text-faint capitalize">{e.env}</span>
-                    <Meter value={(e.cost / 6820) * 100} tone={e.env === "production" ? "teal" : e.env === "staging" ? "violet" : "amber"} />
-                    <span className="w-14 text-right text-[11px] font-mono text-text-muted tabular">${e.cost}</span>
+          {/* KPI Row */}
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 mt-6">
+            <StatCard index={0} icon={Wallet} label="Month to date" value="9,694" unit="USD" accent="emerald" delta="▲ 8.2%" deltaTone="up" />
+            <StatCard index={1} icon={TrendingUp} label="Forecast (EOM)" value="12,480" unit="USD" accent="violet" delta="on budget" deltaTone="neutral" />
+            <StatCard index={2} icon={PiggyBank} label="Potential savings" value="325.60" unit="USD/mo" accent="amber" delta="5 actions" deltaTone="neutral" />
+            <StatCard index={3} icon={ServerIcon} label="Idle resources" value={kpis.idleResources} accent="coral" delta="flagged" deltaTone="up" />
+            <StatCard index={4} icon={Rocket} label="Active deployments" value={kpis.activeDeployments} accent="emerald" delta="all healthy" deltaTone="down" />
+            <StatCard index={5} icon={Sparkles} label="Optimization score" value="82" unit="/100" accent="violet" delta="▲ 4 pts" deltaTone="down" />
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-6 mt-6">
+            {/* Cost by Service */}
+            <Card className="p-6 lg:col-span-1">
+              <SectionHeading eyebrow="Breakdown" title="Cost by service" />
+              <ResponsiveContainer width="100%" height={190}>
+                <PieChart>
+                  <Pie data={costByService} dataKey="value" nameKey="name" innerRadius={52} outerRadius={78} paddingAngle={3} strokeWidth={0}>
+                    {costByService.map((s, i) => (
+                      <Cell key={i} fill={i === 0 ? "#22C55E" : i === 1 ? "#10B981" : i === 2 ? "#8B5CF6" : "#F59E0B"} />
+                    ))}
+                  </Pie>
+                  <Tooltip contentStyle={{ background: "#050807", border: "1px solid #1A2E26", borderRadius: 10, fontSize: 12, color: "#FFF" }} />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                {costByService.map((s, i) => (
+                  <div key={s.name} className="flex items-center gap-2 text-xs">
+                    <span className="w-2 h-2 rounded-full" style={{ background: i === 0 ? "#22C55E" : i === 1 ? "#10B981" : i === 2 ? "#8B5CF6" : "#F59E0B" }} />
+                    <span className="text-text-muted font-medium">{s.name}</span>
+                    <span className="ml-auto font-mono text-white font-bold tabular">${s.value}</span>
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        </Card>
+            </Card>
 
-        {/* KPI row */}
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
-          <StatCard index={0} icon={Wallet} label="Month to date" value="9,694" unit="USD" accent="teal" delta="▲ 8.2%" deltaTone="up" />
-          <StatCard index={1} icon={TrendingUp} label="Forecast (EOM)" value="12,480" unit="USD" accent="violet" delta="on budget" deltaTone="neutral" />
-          <StatCard index={2} icon={PiggyBank} label="Potential savings" value="325.60" unit="USD/mo" accent="amber" delta="5 actions" deltaTone="neutral" />
-          <StatCard index={3} icon={ServerIcon} label="Idle resources" value={kpis.idleResources} accent="coral" delta="flagged" deltaTone="up" />
-          <StatCard index={4} icon={Rocket} label="Active deployments" value={kpis.activeDeployments} accent="teal" delta="all healthy" deltaTone="down" />
-          <StatCard index={5} icon={Sparkles} label="Optimization score" value="82" unit="/100" accent="violet" delta="▲ 4 pts" deltaTone="down" />
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Cost by service */}
-          <Card className="p-6 lg:col-span-1">
-            <SectionHeading eyebrow="Breakdown" title="Cost by service" />
-            <ResponsiveContainer width="100%" height={190}>
-              <PieChart>
-                <Pie data={costByService} dataKey="value" nameKey="name" innerRadius={52} outerRadius={78} paddingAngle={3} strokeWidth={0}>
-                  {costByService.map((s, i) => (
-                    <Cell key={i} fill={s.color} />
-                  ))}
-                </Pie>
-                <Tooltip contentStyle={{ background: "#FFFFFF", border: "1px solid #D5CCA8", borderRadius: 10, fontSize: 12, boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} />
-              </PieChart>
-            </ResponsiveContainer>
-            <div className="grid grid-cols-2 gap-2 mt-2">
-              {costByService.map((s) => (
-                <div key={s.name} className="flex items-center gap-2 text-xs">
-                  <span className="w-2 h-2 rounded-full" style={{ background: s.color }} />
-                  <span className="text-text-muted font-medium">{s.name}</span>
-                  <span className="ml-auto font-mono text-[#1C1917] font-semibold tabular">${s.value}</span>
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          {/* Top recommendations */}
-          <Card className="p-6 lg:col-span-1">
-            <SectionHeading eyebrow="FinOps engine" title="Top recommendations" />
-            <div className="space-y-3">
-              {topRecs.map((r) => (
-                <div key={r.id} className="p-3 rounded-xl border border-border bg-[#F6F1E7]/50">
-                  <div className="flex items-start justify-between gap-2">
-                    <p className="text-xs text-text-primary font-semibold leading-snug">{r.title}</p>
-                    <span className="text-[11px] font-mono text-[#C59B27] font-bold shrink-0">−${r.savings}</span>
+            {/* Top Recommendations */}
+            <Card className="p-6 lg:col-span-1">
+              <SectionHeading eyebrow="Fxology engine" title="Top recommendations" />
+              <div className="space-y-3">
+                {topRecs.map((r) => (
+                  <div key={r.id} className="p-3 rounded-xl border border-[#1A2E26] bg-[#050807]/60">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="text-xs text-white font-semibold leading-snug">{r.title}</p>
+                      <span className="text-[11px] font-mono text-[#4ADE80] font-bold shrink-0">−${r.savings}</span>
+                    </div>
+                    <p className="text-[11px] text-text-muted mt-1 leading-relaxed">{r.detail}</p>
                   </div>
-                  <p className="text-[11px] text-text-faint mt-1 leading-relaxed">{r.detail}</p>
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          {/* Idle resources + alerts */}
-          <Card className="p-6 lg:col-span-1">
-            <SectionHeading eyebrow="Attention" title="Recent alerts" />
-            <div className="space-y-3">
-              {topAlerts.map((a) => (
-                <div key={a.id} className="flex items-start gap-3">
-                  <span
-                    className={`mt-1 w-2 h-2 rounded-full shrink-0 ${
-                      a.level === "critical" ? "bg-red-500" : a.level === "warning" ? "bg-amber-500" : "bg-emerald-500"
-                    }`}
-                  />
-                  <div className="min-w-0">
-                    <p className="text-xs text-text-primary font-medium leading-snug">{a.message}</p>
-                    <p className="text-[10px] text-text-faint font-mono mt-0.5">{a.time}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Card>
-        </div>
-
-        {/* Idle instance strip */}
-        <Card className="p-6">
-          <SectionHeading eyebrow="EC2" title={`${idleInstances.length} idle instances detected`} />
-          <div className="grid sm:grid-cols-3 gap-3">
-            {idleInstances.map((i) => (
-              <div key={i.id} className="p-3.5 rounded-xl border border-amber-300/60 bg-amber-50/60">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-semibold text-text-primary">{i.name}</span>
-                  <StatusBadge status="idle" />
-                </div>
-                <div className="text-[11px] text-text-faint font-mono">{i.type} · {i.region}</div>
-                <div className="flex items-center gap-3 mt-2 text-[11px] font-mono text-text-muted font-medium">
-                  <span>CPU {i.cpu}%</span>
-                  <span>${i.cost}/mo</span>
-                </div>
+                ))}
               </div>
-            ))}
+            </Card>
+
+            {/* Recent Alerts */}
+            <Card className="p-6 lg:col-span-1">
+              <SectionHeading eyebrow="Attention" title="Recent alerts" />
+              <div className="space-y-3">
+                {topAlerts.map((a) => (
+                  <div key={a.id} className="flex items-start gap-3">
+                    <span
+                      className={`mt-1 w-2 h-2 rounded-full shrink-0 ${
+                        a.level === "critical" ? "bg-red-500" : a.level === "warning" ? "bg-amber-500" : "bg-[#22C55E]"
+                      }`}
+                    />
+                    <div className="min-w-0">
+                      <p className="text-xs text-white font-medium leading-snug">{a.message}</p>
+                      <p className="text-[10px] text-text-muted font-mono mt-0.5">{a.time}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
           </div>
-        </Card>
+
+          {/* Idle Instance Strip */}
+          <Card className="p-6 mt-6">
+            <SectionHeading eyebrow="EC2" title={`${idleInstances.length} idle instances detected`} />
+            <div className="grid sm:grid-cols-3 gap-3">
+              {idleInstances.map((i) => (
+                <div key={i.id} className="p-3.5 rounded-xl border border-amber-500/30 bg-amber-500/10">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-semibold text-white">{i.name}</span>
+                    <StatusBadge status="idle" />
+                  </div>
+                  <div className="text-[11px] text-text-muted font-mono">{i.type} · {i.region}</div>
+                  <div className="flex items-center gap-3 mt-2 text-[11px] font-mono text-text-muted font-medium">
+                    <span>CPU {i.cpu}%</span>
+                    <span className="text-[#4ADE80] font-bold">${i.cost}/mo</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
       </div>
     </PageTransition>
   );
@@ -175,7 +180,7 @@ function RadialBudget({ pct }) {
   const offset = c - (pct / 100) * c;
   return (
     <svg width="88" height="88" viewBox="0 0 88 88">
-      <circle cx="44" cy="44" r={r} fill="none" stroke="#E5DEC9" strokeWidth="8" />
+      <circle cx="44" cy="44" r={r} fill="none" stroke="#1A2E26" strokeWidth="8" />
       <motion.circle
         cx="44"
         cy="44"
@@ -192,10 +197,12 @@ function RadialBudget({ pct }) {
       />
       <defs>
         <linearGradient id="budgetGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#D4AF37" />
-          <stop offset="100%" stopColor="#B45309" />
+          <stop offset="0%" stopColor="#22C55E" />
+          <stop offset="100%" stopColor="#10B981" />
         </linearGradient>
       </defs>
     </svg>
   );
 }
+
+

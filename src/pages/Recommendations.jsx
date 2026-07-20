@@ -6,11 +6,11 @@ import { Card, PageTransition, SectionHeading } from "../components/ui";
 import { recommendations as initialRecs } from "../data/mockData";
 
 const sevStyle = {
-  high: "border-red-200 bg-red-50/50",
-  medium: "border-amber-300 bg-amber-50/50",
-  low: "border-[#D5CCA8] bg-[#FDF4DB]/50",
+  high: "border-red-500/30 bg-red-500/10",
+  medium: "border-amber-500/30 bg-amber-500/10",
+  low: "border-[#22C55E]/30 bg-[#22C55E]/10",
 };
-const sevDot = { high: "bg-red-500", medium: "bg-amber-500", low: "bg-[#C59B27]" };
+const sevDot = { high: "bg-red-500", medium: "bg-amber-500", low: "bg-[#22C55E]" };
 
 export default function Recommendations() {
   const [recs, setRecs] = useState(initialRecs);
@@ -31,26 +31,26 @@ export default function Recommendations() {
       <div className="pt-6 space-y-6">
         <Card className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-gold-light/80 border border-gold/40 flex items-center justify-center shadow-glowGold">
-              <Sparkles size={20} className="text-[#C59B27]" />
+            <div className="w-11 h-11 rounded-2xl bg-[#22C55E]/15 border border-[#22C55E]/30 flex items-center justify-center shadow-glowEmerald">
+              <Sparkles size={20} className="text-[#4ADE80]" />
             </div>
             <div>
-              <div className="text-sm text-text-primary font-bold">
+              <div className="text-sm text-white font-bold">
                 ${totalSavings.toFixed(2)}/mo identified across {initialRecs.length} recommendations
               </div>
-              <div className="text-xs text-text-faint mt-0.5 font-medium">${capturedSavings.toFixed(2)} captured so far</div>
+              <div className="text-xs text-[#4ADE80] mt-0.5 font-mono">${capturedSavings.toFixed(2)} captured so far</div>
             </div>
           </div>
-          <div className="w-full sm:w-56 h-2.5 rounded-full bg-[#F6F1E7] overflow-hidden border border-border">
+          <div className="w-full sm:w-56 h-2.5 rounded-full bg-[#050807] overflow-hidden border border-[#1A2E26]">
             <motion.div
-              className="h-full bg-gradient-to-r from-[#D4AF37] to-[#B45309]"
+              className="h-full bg-gradient-to-r from-[#22C55E] to-[#4ADE80]"
               animate={{ width: `${(capturedSavings / totalSavings) * 100}%` }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             />
           </div>
         </Card>
 
-        <SectionHeading eyebrow="FinOps engine" title="Open recommendations" />
+        <SectionHeading eyebrow="Fxology engine" title="Open recommendations" />
         <div className="space-y-3">
           <AnimatePresence>
             {recs.map((r) => {
@@ -70,8 +70,8 @@ export default function Recommendations() {
                         <span className={`mt-1.5 w-2 h-2 rounded-full shrink-0 ${sevDot[r.severity]}`} />
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <h3 className="text-sm font-bold text-text-primary">{r.title}</h3>
-                            <span className="text-[10px] font-mono font-semibold uppercase tracking-wide text-text-faint px-2 py-0.5 rounded border border-border bg-white">
+                            <h3 className="text-sm font-bold text-white">{r.title}</h3>
+                            <span className="text-[10px] font-mono font-semibold uppercase tracking-wide text-[#4ADE80] px-2 py-0.5 rounded border border-[#1A2E26] bg-[#050807]">
                               {r.severity}
                             </span>
                           </div>
@@ -81,16 +81,16 @@ export default function Recommendations() {
 
                       <div className="flex items-center gap-4 shrink-0 pl-6 sm:pl-0">
                         <div className="text-right">
-                          <div className="font-mono text-sm text-[#C59B27] font-bold tabular">−${r.savings.toFixed(2)}</div>
-                          <div className="text-[10px] text-text-faint font-mono">per month</div>
+                          <div className="font-mono text-sm text-[#4ADE80] font-bold tabular">−${r.savings.toFixed(2)}</div>
+                          <div className="text-[10px] text-text-muted font-mono">per month</div>
                         </div>
                         <button
                           onClick={() => apply(r.id)}
                           disabled={isApplied}
-                          className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+                          className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                             isApplied
-                              ? "bg-emerald-50 text-emerald-700 border border-emerald-300"
-                              : "bg-[#C59B27] hover:bg-[#B45309] text-white shadow-md shadow-[#D4AF37]/20"
+                              ? "bg-[#22C55E]/20 text-[#4ADE80] border border-[#22C55E]/40"
+                              : "bg-[#22C55E] hover:bg-[#16A34A] text-[#050807] shadow-lg shadow-[#22C55E]/20"
                           }`}
                         >
                           {isApplied ? (

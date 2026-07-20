@@ -33,20 +33,20 @@ export default function Cost() {
               {catalog.map((item) => (
                 <div key={item.key} className="flex items-center gap-4">
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm text-text-primary">{item.label}</div>
-                    <div className="text-[11px] font-mono text-text-faint">${item.hourly.toFixed(3)}/hr</div>
+                    <div className="text-sm font-semibold text-white">{item.label}</div>
+                    <div className="text-[11px] font-mono text-[#4ADE80]">${item.hourly.toFixed(3)}/hr</div>
                   </div>
-                  <div className="flex items-center gap-2 bg-bg-surface2 border border-border rounded-lg px-1">
+                  <div className="flex items-center gap-2 bg-[#050807] border border-[#1A2E26] rounded-xl px-1.5 py-1">
                     <button
                       onClick={() => setCounts((c) => ({ ...c, [item.key]: Math.max(0, (c[item.key] || 0) - 1) }))}
-                      className="w-7 h-7 rounded-md text-text-muted hover:text-teal hover:bg-bg-surface3 transition-colors"
+                      className="w-7 h-7 rounded-lg text-text-muted hover:text-[#4ADE80] hover:bg-[#15221E] transition-colors font-bold"
                     >
                       −
                     </button>
-                    <span className="w-6 text-center font-mono text-sm tabular text-text-primary">{counts[item.key] || 0}</span>
+                    <span className="w-6 text-center font-mono text-sm tabular text-white font-bold">{counts[item.key] || 0}</span>
                     <button
                       onClick={() => setCounts((c) => ({ ...c, [item.key]: (c[item.key] || 0) + 1 }))}
-                      className="w-7 h-7 rounded-md text-text-muted hover:text-teal hover:bg-bg-surface3 transition-colors"
+                      className="w-7 h-7 rounded-lg text-text-muted hover:text-[#4ADE80] hover:bg-[#15221E] transition-colors font-bold"
                     >
                       +
                     </button>
@@ -55,15 +55,15 @@ export default function Cost() {
               ))}
             </div>
 
-            <div className="mt-6 pt-5 border-t border-border/70 flex items-center justify-between">
+            <div className="mt-6 pt-5 border-t border-[#1A2E26] flex items-center justify-between">
               <div>
-                <div className="text-[10px] font-mono tracking-widest text-text-faint uppercase">Estimated monthly cost</div>
-                <div className="font-display text-3xl font-semibold tabular mt-1">
+                <div className="text-[10px] font-mono tracking-widest text-[#4ADE80] uppercase font-bold">Estimated monthly cost</div>
+                <div className="font-display text-3xl font-extrabold text-white tabular mt-1">
                   ${monthly.toLocaleString(undefined, { maximumFractionDigits: 2 })}
                 </div>
               </div>
-              <div className="w-11 h-11 rounded-xl bg-teal/10 border border-teal/25 flex items-center justify-center">
-                <Calculator size={18} className="text-teal" />
+              <div className="w-11 h-11 rounded-2xl bg-[#22C55E]/15 border border-[#22C55E]/30 flex items-center justify-center shadow-glowEmerald">
+                <Calculator size={20} className="text-[#4ADE80]" />
               </div>
             </div>
           </Card>
@@ -73,12 +73,12 @@ export default function Cost() {
               <SectionHeading eyebrow="Trend" title="Actual vs. forecast" />
               <ResponsiveContainer width="100%" height={200}>
                 <ComposedChart data={costTrend} margin={{ left: -20 }}>
-                  <CartesianGrid stroke="#E5DEC9" vertical={false} />
-                  <XAxis dataKey="day" tick={{ fill: "#78716C", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} interval={1} />
-                  <YAxis tick={{ fill: "#78716C", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={36} />
-                  <Tooltip contentStyle={{ background: "#FFFFFF", border: "1px solid #D5CCA8", borderRadius: 10, fontSize: 12, boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} />
-                  <Bar dataKey="cost" fill="#D4AF37" radius={[4, 4, 0, 0]} barSize={16} />
-                  <Line type="monotone" dataKey="forecast" stroke="#7C3AED" strokeWidth={2} dot={false} />
+                  <CartesianGrid stroke="#1A2E26" vertical={false} />
+                  <XAxis dataKey="day" tick={{ fill: "#9CA3AF", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} interval={1} />
+                  <YAxis tick={{ fill: "#9CA3AF", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={36} />
+                  <Tooltip contentStyle={{ background: "#050807", border: "1px solid #22C55E", borderRadius: 10, fontSize: 12, color: "#FFF" }} />
+                  <Bar dataKey="cost" fill="#22C55E" radius={[4, 4, 0, 0]} barSize={16} />
+                  <Line type="monotone" dataKey="forecast" stroke="#8B5CF6" strokeWidth={2} dot={false} />
                 </ComposedChart>
               </ResponsiveContainer>
             </Card>
@@ -88,9 +88,9 @@ export default function Cost() {
               <ResponsiveContainer width="100%" height={140}>
                 <BarChart data={costByEnv} layout="vertical" margin={{ left: 10 }}>
                   <XAxis type="number" hide />
-                  <YAxis dataKey="env" type="category" tick={{ fill: "#57534E", fontSize: 11, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={70} />
-                  <Tooltip contentStyle={{ background: "#FFFFFF", border: "1px solid #D5CCA8", borderRadius: 10, fontSize: 12, boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} />
-                  <Bar dataKey="cost" fill="#B45309" radius={[0, 6, 6, 0]} barSize={18} />
+                  <YAxis dataKey="env" type="category" tick={{ fill: "#9CA3AF", fontSize: 11, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={70} />
+                  <Tooltip contentStyle={{ background: "#050807", border: "1px solid #1A2E26", borderRadius: 10, fontSize: 12, color: "#FFF" }} />
+                  <Bar dataKey="cost" fill="#10B981" radius={[0, 6, 6, 0]} barSize={18} />
                 </BarChart>
               </ResponsiveContainer>
             </Card>
@@ -110,11 +110,11 @@ export default function Cost() {
 function Info({ icon: Icon, label, value }) {
   return (
     <Card className="p-5 flex items-center gap-4">
-      <div className="w-10 h-10 rounded-xl border border-gold/40 bg-gold-light/60 flex items-center justify-center text-[#C59B27] shadow-glowGold">
+      <div className="w-10 h-10 rounded-xl border border-[#22C55E]/40 bg-[#22C55E]/10 flex items-center justify-center text-[#4ADE80] shadow-glowEmerald">
         <Icon size={18} strokeWidth={2} />
       </div>
       <div>
-        <div className="font-mono text-lg text-text-primary tabular font-bold">{value}</div>
+        <div className="font-mono text-lg text-white tabular font-bold">{value}</div>
         <div className="text-xs text-text-muted font-medium">{label}</div>
       </div>
     </Card>
