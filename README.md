@@ -4,5 +4,5 @@ CloudCost Optimizer is a DevOps mini project developed to monitor AWS cloud reso
 
 ## Team Members
 - Bhoomi Sharma
-- Tanvi
+- Tanvi Patil
 - Swagatika Samal
