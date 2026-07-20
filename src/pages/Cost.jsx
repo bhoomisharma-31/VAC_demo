@@ -73,12 +73,12 @@ export default function Cost() {
               <SectionHeading eyebrow="Trend" title="Actual vs. forecast" />
               <ResponsiveContainer width="100%" height={200}>
                 <ComposedChart data={costTrend} margin={{ left: -20 }}>
-                  <CartesianGrid stroke="#182339" vertical={false} />
-                  <XAxis dataKey="day" tick={{ fill: "#5A6685", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} interval={1} />
-                  <YAxis tick={{ fill: "#5A6685", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={36} />
-                  <Tooltip contentStyle={{ background: "#111A2E", border: "1px solid #212C46", borderRadius: 10, fontSize: 12 }} />
-                  <Bar dataKey="cost" fill="#2DD9C4" radius={[4, 4, 0, 0]} barSize={16} />
-                  <Line type="monotone" dataKey="forecast" stroke="#8B7FF6" strokeWidth={2} dot={false} />
+                  <CartesianGrid stroke="#E5DEC9" vertical={false} />
+                  <XAxis dataKey="day" tick={{ fill: "#78716C", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} interval={1} />
+                  <YAxis tick={{ fill: "#78716C", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={36} />
+                  <Tooltip contentStyle={{ background: "#FFFFFF", border: "1px solid #D5CCA8", borderRadius: 10, fontSize: 12, boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} />
+                  <Bar dataKey="cost" fill="#D4AF37" radius={[4, 4, 0, 0]} barSize={16} />
+                  <Line type="monotone" dataKey="forecast" stroke="#7C3AED" strokeWidth={2} dot={false} />
                 </ComposedChart>
               </ResponsiveContainer>
             </Card>
@@ -88,9 +88,9 @@ export default function Cost() {
               <ResponsiveContainer width="100%" height={140}>
                 <BarChart data={costByEnv} layout="vertical" margin={{ left: 10 }}>
                   <XAxis type="number" hide />
-                  <YAxis dataKey="env" type="category" tick={{ fill: "#8794AD", fontSize: 11, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={70} />
-                  <Tooltip contentStyle={{ background: "#111A2E", border: "1px solid #212C46", borderRadius: 10, fontSize: 12 }} />
-                  <Bar dataKey="cost" fill="#8B7FF6" radius={[0, 6, 6, 0]} barSize={18} />
+                  <YAxis dataKey="env" type="category" tick={{ fill: "#57534E", fontSize: 11, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={70} />
+                  <Tooltip contentStyle={{ background: "#FFFFFF", border: "1px solid #D5CCA8", borderRadius: 10, fontSize: 12, boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} />
+                  <Bar dataKey="cost" fill="#B45309" radius={[0, 6, 6, 0]} barSize={18} />
                 </BarChart>
               </ResponsiveContainer>
             </Card>
@@ -110,12 +110,12 @@ export default function Cost() {
 function Info({ icon: Icon, label, value }) {
   return (
     <Card className="p-5 flex items-center gap-4">
-      <div className="w-10 h-10 rounded-lg border border-teal/25 bg-teal/10 flex items-center justify-center text-teal">
-        <Icon size={17} strokeWidth={1.8} />
+      <div className="w-10 h-10 rounded-xl border border-gold/40 bg-gold-light/60 flex items-center justify-center text-[#C59B27] shadow-glowGold">
+        <Icon size={18} strokeWidth={2} />
       </div>
       <div>
-        <div className="font-mono text-lg text-text-primary tabular font-medium">{value}</div>
-        <div className="text-xs text-text-muted">{label}</div>
+        <div className="font-mono text-lg text-text-primary tabular font-bold">{value}</div>
+        <div className="text-xs text-text-muted font-medium">{label}</div>
       </div>
     </Card>
   );

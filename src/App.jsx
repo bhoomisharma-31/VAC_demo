@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Sidebar from "./components/Sidebar";
@@ -9,10 +10,16 @@ import Cost from "./pages/Cost";
 import Recommendations from "./pages/Recommendations";
 import Reports from "./pages/Reports";
 import Alerts from "./pages/Alerts";
+import Login from "./pages/Login";
 import MobileNav from "./components/MobileNav";
 
 export default function App() {
   const location = useLocation();
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+
+  if (location.pathname === "/login") {
+    return <Login onLogin={() => setIsAuthenticated(true)} />;
+  }
 
   return (
     <div className="flex min-h-screen bg-bg text-text-primary font-body">
@@ -30,6 +37,7 @@ export default function App() {
               <Route path="/recommendations" element={<Recommendations />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/alerts" element={<Alerts />} />
+              <Route path="/login" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
             </Routes>
           </AnimatePresence>
         </main>

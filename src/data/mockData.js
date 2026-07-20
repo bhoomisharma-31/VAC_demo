@@ -16,11 +16,11 @@ export const costTrend = [
 ];
 
 export const costByService = [
-  { name: "EC2", value: 5240, color: "#2DD9C4" },
-  { name: "S3", value: 1380, color: "#8B7FF6" },
-  { name: "Lambda", value: 620, color: "#F5A93F" },
-  { name: "EKS", value: 2110, color: "#5B8CFF" },
-  { name: "CloudWatch", value: 340, color: "#F0645F" },
+  { name: "EC2", value: 5240, color: "#D4AF37" },
+  { name: "S3", value: 1380, color: "#7C3AED" },
+  { name: "Lambda", value: 620, color: "#D97706" },
+  { name: "EKS", value: 2110, color: "#059669" },
+  { name: "CloudWatch", value: 340, color: "#DC2626" },
 ];
 
 export const costByEnv = [

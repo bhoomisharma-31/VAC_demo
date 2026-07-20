@@ -22,12 +22,12 @@ export default function Reports() {
           <SectionHeading eyebrow="Trend" title="Spend trajectory, last 12 days" />
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={costTrend} margin={{ left: -20 }}>
-              <CartesianGrid stroke="#182339" vertical={false} />
-              <XAxis dataKey="day" tick={{ fill: "#5A6685", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} interval={1} />
-              <YAxis tick={{ fill: "#5A6685", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={36} />
-              <Tooltip contentStyle={{ background: "#111A2E", border: "1px solid #212C46", borderRadius: 10, fontSize: 12 }} />
-              <Line type="monotone" dataKey="cost" stroke="#2DD9C4" strokeWidth={2.5} dot={{ r: 3, fill: "#0A0F1C", stroke: "#2DD9C4", strokeWidth: 2 }} />
-              <Line type="monotone" dataKey="forecast" stroke="#8B7FF6" strokeWidth={1.5} strokeDasharray="4 4" dot={false} />
+              <CartesianGrid stroke="#E5DEC9" vertical={false} />
+              <XAxis dataKey="day" tick={{ fill: "#78716C", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} interval={1} />
+              <YAxis tick={{ fill: "#78716C", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={36} />
+              <Tooltip contentStyle={{ background: "#FFFFFF", border: "1px solid #D5CCA8", borderRadius: 10, fontSize: 12, boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} />
+              <Line type="monotone" dataKey="cost" stroke="#D4AF37" strokeWidth={2.5} dot={{ r: 3.5, fill: "#FFFFFF", stroke: "#D4AF37", strokeWidth: 2 }} />
+              <Line type="monotone" dataKey="forecast" stroke="#7C3AED" strokeWidth={1.5} strokeDasharray="4 4" dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </Card>

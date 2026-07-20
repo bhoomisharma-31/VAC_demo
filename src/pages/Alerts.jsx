@@ -7,9 +7,9 @@ import { alerts as allAlerts } from "../data/mockData";
 
 const levelIcon = { critical: AlertOctagon, warning: AlertTriangle, info: Info };
 const levelStyle = {
-  critical: "text-coral border-coral/30 bg-coral/10",
-  warning: "text-amber border-amber/30 bg-amber/10",
-  info: "text-teal border-teal/30 bg-teal/10",
+  critical: "text-red-700 border-red-200 bg-red-50",
+  warning: "text-amber-800 border-amber-300 bg-amber-50",
+  info: "text-[#C59B27] border-[#D5CCA8] bg-[#FDF4DB]",
 };
 const typeIcon = { cost: Wallet, infra: Server, deploy: Rocket };
 
@@ -40,7 +40,7 @@ export default function Alerts() {
             title="Recent activity"
             action={
               filter !== "all" && (
-                <button onClick={() => setFilter("all")} className="text-[11px] font-mono text-text-faint hover:text-teal transition-colors">
+                <button onClick={() => setFilter("all")} className="text-[11px] font-mono text-[#92400E] font-semibold hover:underline">
                   Clear filter ×
                 </button>
               )
@@ -56,16 +56,16 @@ export default function Alerts() {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: idx * 0.05 }}
-                  className="flex items-start gap-3.5 p-4 rounded-xl border border-border bg-bg-surface2/50"
+                  className="flex items-start gap-3.5 p-4 rounded-xl border border-border bg-[#F6F1E7]/40"
                 >
-                  <div className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 ${levelStyle[a.level]}`}>
-                    <LIcon size={14} />
+                  <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 ${levelStyle[a.level]}`}>
+                    <LIcon size={15} />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm text-text-primary leading-snug">{a.message}</p>
+                    <p className="text-sm text-text-primary font-medium leading-snug">{a.message}</p>
                     <div className="flex items-center gap-2 mt-1.5">
-                      <TIcon size={11} className="text-text-faint" />
-                      <span className="text-[10px] font-mono text-text-faint capitalize">{a.type}</span>
+                      <TIcon size={12} className="text-text-faint" />
+                      <span className="text-[10px] font-mono text-text-faint font-medium capitalize">{a.type}</span>
                       <span className="text-text-faint">·</span>
                       <span className="text-[10px] font-mono text-text-faint">{a.time}</span>
                     </div>
@@ -83,14 +83,14 @@ export default function Alerts() {
 function LevelCard({ level, count, onClick, active }) {
   const Icon = levelIcon[level];
   return (
-    <button onClick={onClick} className="text-left">
-      <Card className={`p-5 flex items-center gap-4 transition-colors ${active ? "border-teal/40" : "hover:border-border-soft"}`}>
-        <div className={`w-10 h-10 rounded-lg border flex items-center justify-center ${levelStyle[level]}`}>
-          <Icon size={17} strokeWidth={1.8} />
+    <button onClick={onClick} className="text-left w-full">
+      <Card className={`p-5 flex items-center gap-4 transition-all ${active ? "border-gold ring-2 ring-gold/20 shadow-glowGold" : "hover:border-gold/40"}`}>
+        <div className={`w-10 h-10 rounded-xl border flex items-center justify-center ${levelStyle[level]}`}>
+          <Icon size={18} strokeWidth={2} />
         </div>
         <div>
-          <div className="font-mono text-xl text-text-primary tabular font-medium">{count}</div>
-          <div className="text-xs text-text-muted capitalize">{level} alerts</div>
+          <div className="font-mono text-xl text-text-primary tabular font-bold">{count}</div>
+          <div className="text-xs text-text-muted capitalize font-medium">{level} alerts</div>
         </div>
       </Card>
     </button>

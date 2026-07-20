@@ -34,19 +34,19 @@ export default function Overview() {
                 <AreaChart data={costTrend} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="costFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#2DD9C4" stopOpacity={0.35} />
-                      <stop offset="100%" stopColor="#2DD9C4" stopOpacity={0} />
+                      <stop offset="0%" stopColor="#D4AF37" stopOpacity={0.35} />
+                      <stop offset="100%" stopColor="#D4AF37" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid stroke="#182339" vertical={false} />
-                  <XAxis dataKey="day" tick={{ fill: "#5A6685", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} interval={1} />
-                  <YAxis tick={{ fill: "#5A6685", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={40} />
+                  <CartesianGrid stroke="#E5DEC9" vertical={false} />
+                  <XAxis dataKey="day" tick={{ fill: "#78716C", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} interval={1} />
+                  <YAxis tick={{ fill: "#78716C", fontSize: 10, fontFamily: "JetBrains Mono" }} axisLine={false} tickLine={false} width={40} />
                   <Tooltip
-                    contentStyle={{ background: "#111A2E", border: "1px solid #212C46", borderRadius: 10, fontSize: 12, fontFamily: "JetBrains Mono" }}
-                    labelStyle={{ color: "#8794AD" }}
+                    contentStyle={{ background: "#FFFFFF", border: "1px solid #D5CCA8", borderRadius: 10, fontSize: 12, fontFamily: "JetBrains Mono", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }}
+                    labelStyle={{ color: "#57534E" }}
                   />
-                  <Area type="monotone" dataKey="forecast" stroke="#8B7FF6" strokeWidth={1.5} strokeDasharray="4 4" fill="none" />
-                  <Area type="monotone" dataKey="cost" stroke="#2DD9C4" strokeWidth={2} fill="url(#costFill)" />
+                  <Area type="monotone" dataKey="forecast" stroke="#7C3AED" strokeWidth={1.5} strokeDasharray="4 4" fill="none" />
+                  <Area type="monotone" dataKey="cost" stroke="#D4AF37" strokeWidth={2.5} fill="url(#costFill)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -94,15 +94,15 @@ export default function Overview() {
                     <Cell key={i} fill={s.color} />
                   ))}
                 </Pie>
-                <Tooltip contentStyle={{ background: "#111A2E", border: "1px solid #212C46", borderRadius: 10, fontSize: 12 }} />
+                <Tooltip contentStyle={{ background: "#FFFFFF", border: "1px solid #D5CCA8", borderRadius: 10, fontSize: 12, boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} />
               </PieChart>
             </ResponsiveContainer>
             <div className="grid grid-cols-2 gap-2 mt-2">
               {costByService.map((s) => (
                 <div key={s.name} className="flex items-center gap-2 text-xs">
                   <span className="w-2 h-2 rounded-full" style={{ background: s.color }} />
-                  <span className="text-text-muted">{s.name}</span>
-                  <span className="ml-auto font-mono text-text-faint tabular">${s.value}</span>
+                  <span className="text-text-muted font-medium">{s.name}</span>
+                  <span className="ml-auto font-mono text-[#1C1917] font-semibold tabular">${s.value}</span>
                 </div>
               ))}
             </div>
@@ -113,10 +113,10 @@ export default function Overview() {
             <SectionHeading eyebrow="FinOps engine" title="Top recommendations" />
             <div className="space-y-3">
               {topRecs.map((r) => (
-                <div key={r.id} className="p-3 rounded-xl border border-border bg-bg-surface2/60">
+                <div key={r.id} className="p-3 rounded-xl border border-border bg-[#F6F1E7]/50">
                   <div className="flex items-start justify-between gap-2">
-                    <p className="text-xs text-text-primary font-medium leading-snug">{r.title}</p>
-                    <span className="text-[11px] font-mono text-teal shrink-0">−${r.savings}</span>
+                    <p className="text-xs text-text-primary font-semibold leading-snug">{r.title}</p>
+                    <span className="text-[11px] font-mono text-[#C59B27] font-bold shrink-0">−${r.savings}</span>
                   </div>
                   <p className="text-[11px] text-text-faint mt-1 leading-relaxed">{r.detail}</p>
                 </div>
@@ -131,12 +131,12 @@ export default function Overview() {
               {topAlerts.map((a) => (
                 <div key={a.id} className="flex items-start gap-3">
                   <span
-                    className={`mt-1 w-1.5 h-1.5 rounded-full shrink-0 ${
-                      a.level === "critical" ? "bg-coral" : a.level === "warning" ? "bg-amber" : "bg-teal"
+                    className={`mt-1 w-2 h-2 rounded-full shrink-0 ${
+                      a.level === "critical" ? "bg-red-500" : a.level === "warning" ? "bg-amber-500" : "bg-emerald-500"
                     }`}
                   />
                   <div className="min-w-0">
-                    <p className="text-xs text-text-primary leading-snug">{a.message}</p>
+                    <p className="text-xs text-text-primary font-medium leading-snug">{a.message}</p>
                     <p className="text-[10px] text-text-faint font-mono mt-0.5">{a.time}</p>
                   </div>
                 </div>
@@ -150,13 +150,13 @@ export default function Overview() {
           <SectionHeading eyebrow="EC2" title={`${idleInstances.length} idle instances detected`} />
           <div className="grid sm:grid-cols-3 gap-3">
             {idleInstances.map((i) => (
-              <div key={i.id} className="p-3.5 rounded-xl border border-amber/20 bg-amber/5">
+              <div key={i.id} className="p-3.5 rounded-xl border border-amber-300/60 bg-amber-50/60">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-medium text-text-primary">{i.name}</span>
+                  <span className="text-xs font-semibold text-text-primary">{i.name}</span>
                   <StatusBadge status="idle" />
                 </div>
                 <div className="text-[11px] text-text-faint font-mono">{i.type} · {i.region}</div>
-                <div className="flex items-center gap-3 mt-2 text-[11px] font-mono text-text-muted">
+                <div className="flex items-center gap-3 mt-2 text-[11px] font-mono text-text-muted font-medium">
                   <span>CPU {i.cpu}%</span>
                   <span>${i.cost}/mo</span>
                 </div>
@@ -175,7 +175,7 @@ function RadialBudget({ pct }) {
   const offset = c - (pct / 100) * c;
   return (
     <svg width="88" height="88" viewBox="0 0 88 88">
-      <circle cx="44" cy="44" r={r} fill="none" stroke="#182339" strokeWidth="8" />
+      <circle cx="44" cy="44" r={r} fill="none" stroke="#E5DEC9" strokeWidth="8" />
       <motion.circle
         cx="44"
         cy="44"
@@ -192,8 +192,8 @@ function RadialBudget({ pct }) {
       />
       <defs>
         <linearGradient id="budgetGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#2DD9C4" />
-          <stop offset="100%" stopColor="#8B7FF6" />
+          <stop offset="0%" stopColor="#D4AF37" />
+          <stop offset="100%" stopColor="#B45309" />
         </linearGradient>
       </defs>
     </svg>
